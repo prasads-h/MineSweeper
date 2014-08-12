@@ -1,0 +1,150 @@
+@CHARSET "ISO-8859-1";
+
+body.caution {
+	cursor: help;
+	
+}
+body{
+	background-color: #668EA3 !important;
+	margin: 5px 0px 0px 3px !important;
+	color: #fff !important;
+	font-weight: strong;
+}
+
+.grey {
+	background-color: greay;
+}
+
+.pink {
+	background-color: pink;
+}
+
+table.mine-sweeper {
+	
+}
+
+table.mine-sweeper td {
+	background-color: #F0F0F0;
+	border: 1px solid #333333;
+	cursor: pointer;
+	height: 35px;
+	line-height: 25px;
+	overflow: hidden;
+	text-align: center;
+	width: 35px;
+	color: #000;
+}
+
+table.mine-sweeper td.active {
+	background-color: #D8D8D8;
+}
+
+table.mine-sweeper td.bomb {
+	font-weight: bold;
+}
+
+table.mine-sweeper td.bombed {
+	background-color: #FFD0D0;
+	color: #CC0000;
+	font-weight: bold;
+}
+
+table.mine-sweeper td.caution {
+	background-color: #FFD0D0;
+	color: #CC0000;
+	font-weight: bold;
+}
+
+#totalBombCount {
+	min-width: 2%;
+	border-radius: 3px;
+	border: 2px solid #efefef;
+	display: inline-block;
+	padding: 1px;
+}
+
+#ScoreCard {
+	min-width: 4%;
+	border-radius: 3px;
+	border: 2px solid #efefef;
+	display: inline-block;
+	padding: 1px;
+}
+
+ul#GameLevel li, ul#StartGame li {
+	list-style-type: none;
+	height: 6%;
+	border-radius: 4px;
+	border: 1px solid #333;
+	text-align: center;
+	font-weight: bold;
+	background-color: pink;
+	padding: 3px;
+	cursor: pointer;
+}
+
+ul#GameLevel {
+	border: 2px solid pink;
+	width: 25%;
+	text-align: center;
+	padding: 2%;
+	border-radius: 6px;
+}
+
+ul#GameLevel li {
+	width: 94% !important;
+	margin-bottom: 10px;
+	background-color: pink;
+}
+
+ul#GameLevel li:last-child {
+	margin-bottom: 0px;
+}
+
+#StartGame {
+	position: fixed;
+	top: 50%;
+	left: 27%;
+	color: #ffffff;
+}
+
+#GameLevel {
+	position: fixed;
+	top: 40%;
+	left: 40%;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) {
+	
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width
+	: 480px) {
+	ul#StartGame li, ul#GameLevel li {
+		
+	}
+}
+
+/* overriding jquery css
+			*/
+.ui-loader {
+	display: none;
+}
+
+#pauseBtn{
+	width: 15%;
+	display: inline-block;
+}
+
+.paused .pauseIcon{
+	display: none;
+	
+}
+.playBtn{
+	display:none !important;
+}
+.paused .playBtn{
+	display: inline-block !important;
+}

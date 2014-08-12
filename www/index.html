@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+<meta charset="utf-8" />
+<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<link rel="stylesheet" type="text/css" href="css/minesweeper.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+<link href="css/bootstrap-glyphicons.css" rel="stylesheet">
+<meta name="msapplication-tap-highlight" content="no" />
+<title>Hello World</title>
+</head>
+<body>
+	<div id="StartPage" style="display:none;">
+		<ul id="StartGame" onclick="startGame()">
+			<li>Start Game</li>
+		</ul>
+
+	</div>
+	<ul id="GameLevel" style="display: none;"
+		onclick="onLevelSelect(event);">
+		<li data-level="easy">Easy</li>
+		<li data-level="medium">Medium</li>
+		<li data-level="hard">Hard</li>
+	</ul>
+	<div id="GamePage" style="display: none;">
+		
+	</div>
+	<script type="text/javascript" src="cordova.js"></script>	
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.randrange.js"></script>
+	<script type="text/javascript" src="js/jquery.repeatstring.js"></script>
+	<script type="text/javascript" src="js/jquery.randomfilter.js"></script>
+	<script type="text/javascript" src="js/jquery.near.js"></script>
+	<script type="text/javascript" src="js/jquery.minesweeper.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/minesweeper.js"></script>
+
+	<script type="text/javascript">						
+            app.initialize();
+     </script>
+     
+     <script id="GamePageContent" type="text/html">
+		<div class="btn-group">
+			<button type="button" class="btn btn-primary dropdown-toggle"
+				data-toggle="dropdown">
+				Menu <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" id="MenuBar" role="menu">
+				<li><a href="#" data-value="new">New Game</a></li>
+				<li><a href="#" data-value="restart">restart</a></li>
+				<li><a href="#" data-value="hscores">Highest Scores</a></li>
+				<li><a href="#" data-value=""></a></li>
+				<li class="divider"></li>
+				<li><a href="#" data-value="exit">Exit</a></li>
+			</ul>
+		</div>
+		<br/>
+		<div class="bombCount">
+			<label for="totalBombCount">Total Bombs</label>
+			<span type="text" id="totalBombCount" disabled="disabled"></span>
+			<button id="pauseBtn" class="" value="Pause" onclick="pauseGame()">
+				<span class="glyphicon glyphicon-play playBtn"></span>
+				<span class="glyphicon glyphicon-pause pauseIcon"></span>
+			</button>
+			<label for="ScoreCard">Time</label>
+			<span id="ScoreCard"  disabled="disabled">0</span>
+		</div>
+		<br/>	
+		<table cellspacing="2" class="mine-sweeper">
+			
+		</table>
+	</script>
+</body>
+</html>

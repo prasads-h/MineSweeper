@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title> Mine Sweeper</title>
+	<style type="text/css">
+
+			</style>
+	
+	<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.randrange.js"></script>
+	<script type="text/javascript" src="../js/jquery.repeatstring.js"></script>
+	<script type="text/javascript" src="../js/jquery.randomfilter.js"></script>
+	<script type="text/javascript" src="../js/jquery.near.js"></script>
+	<script type="text/javascript" src="../js/jquery.minesweeper.js"></script>
+	<script type="text/javascript" src="../js/jquery.mobile-1.4.2.min.js"></script>
+	
+	<script type="text/javascript">
+		var MS_OBJ;
+		function MS(){
+			var self = this;
+			var mineSweerper = new MineSweeper(
+				jQuery("table.mine-sweeper" ),
+				10,
+				10,
+				"50%"
+			);
+			this.isPaused = false;
+			this.totalBombCount = 0;
+			this.remainingBombCount = 0;
+			this.Score = 0;
+			this.updateBombCount();
+			jQuery("#totalBombCount").text(this.totalBombCount);
+			this.timeCount = 0;
+			this.TimerId = this.setTimerInterval();
+		}
+		MS.prototype.clearAll = function(){
+			//this.clearInterval();
+			this.isPaused = false;
+			this.totalBombCount = 0;
+			this.remainingBombCount = 0;
+			this.Score = 0;
+			this.timeCount = 0;
+		}
+		MS.prototype.setTimerInterval = function(){
+			var self = this;
+			return setInterval(function(){
+				if(!this.isPaused){
+					self.timeCount++;
+					jQuery("#ScoreCard").text(self.toHHMMSS(self.timeCount));
+				}
+			}, 1000);
+		}
+		MS.prototype.pauseGame = function(){
+			this.isPaused = true;
+			this.clearInterval();
+		}
+		
+		MS.prototype.clearInterval  = function(){
+			clearInterval(this.TimerId);		
+		}
+		
+		MS.prototype.resumeGame = function(){
+			this.isPaused = false;
+			this.TimerId = this.setTimerInterval();
+		}
+		MS.prototype.toHHMMSS = function (secs) {
+			var sec_num = parseInt(secs, 10); // don't forget the second param
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours;}
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			var time;
+			if(hours == "00")
+				time = minutes+':'+seconds;
+			else
+				time = hours+':'+minutes+':'+seconds;
+			return time;
+		}
+		MS.prototype.updateBombCount = function(){
+			var bombs = jQuery(".bomb");
+			var totalBombs = bombs.length;
+			var detectedBombs = bombs.filter(".caution").length;
+			this.totalBombCount = totalBombs;
+			this.remainingBombCount = totalBombs - detectedBombs;
+			//jQuery("#totalBombCount").text(this.remainingBombCount);
+		}
+		// When the DOM is ready, build the mine sweeper game.
+		function initGameBoard(col, row, lCnt){
+		
+			
+			MS_OBJ = new MS();
+			
+			
+			jQuery("#GameLevel").hide();
+			jQuery("#GamePage").show();
+		};
+		
+		function startGame(){
+			jQuery("#StartGame").hide();
+			jQuery("#GameLevel").show();
+			document.body.style.backgroundColor = "grey";
+		}
+		
+		/* To change pause button to reusme and vice versa
+		*/
+		function pauseGame(){
+			
+			var pBtn = jQuery("#pauseBtn");
+			if(pBtn.attr("data-paused")== 'true'){
+				MS_OBJ.resumeGame();
+				pBtn.text("Pause");				
+				pBtn.attr("data-paused" , "false");
+			}
+			else{
+				pBtn.text("Resume");
+				MS_OBJ.pauseGame();
+				pBtn.attr("data-paused" , "true");
+			}
+		}
+		
+		function onLevelSelect(e){
+			
+		    var $this = jQuery(e.target);
+			var level = $this.attr("data-level");
+			//alert(level);
+			switch(level){
+				case "easy":
+					initGameBoard(10, 10, "25%");
+					break;
+				case "medium":
+					initGameBoard(10, 10, "50%");
+					break;
+				case "hard":
+					initGameBoard(10, 10, "75%");	
+					break;
+			}
+		}
+	
+
+	</script>
+</head>
+<body style="background-color: grey;">
+	<div id="StartPage">
+		<ul id="StartGame" onclick="startGame()">
+			<li>Start Game</li>			
+		</ul>
+		
+	</div>
+	<ul id="GameLevel" style="display:none;" onclick="onLevelSelect(event);">
+			<li data-level="easy">Easy</li>
+			<li data-level="medium">Medium</li>
+			<li data-level="hard">Hard</li>
+	</ul>
+	<div id="GamePage" style="display:none;">		
+		<br/>
+		<div class="bombCount">
+			<label for="totalBombCount">Total Bombs</label>
+			<span type="text" id="totalBombCount" disabled="disabled"></span>
+			<button id="pauseBtn" value="Pause" onclick="pauseGame()" data-paused="false">Pause</button>
+			<label for="ScoreCard">Time</label>
+			<span id="ScoreCard"  disabled="disabled">0</span>
+		</div>
+		<br/>	
+		<table cellspacing="2" class="mine-sweeper">
+			<!--- Will be populated dynamically. --->
+		</table>
+	</div>
+	<script type="text/javascript" src="../js/cordova.js"></script>
+</body>
+</html>
