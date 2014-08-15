@@ -31,7 +31,7 @@
 <title>Hello World</title>
 </head>
 <body>
-	<div id="StartPage" style="display:none;">
+	<div id="StartPage" style="display: none;">
 		<ul id="StartGame" onclick="startGame()">
 			<li>Start Game</li>
 		</ul>
@@ -43,26 +43,29 @@
 		<li data-level="medium">Medium</li>
 		<li data-level="hard">Hard</li>
 	</ul>
-	<div id="GamePage" style="display: none;">
-		
-	</div>
-	<script type="text/javascript" src="cordova.js"></script>	
+	<div id="GamePage" style="display: none;"></div>
+	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.randrange.js"></script>
 	<script type="text/javascript" src="js/jquery.repeatstring.js"></script>
 	<script type="text/javascript" src="js/jquery.randomfilter.js"></script>
 	<script type="text/javascript" src="js/jquery.near.js"></script>
-	<script type="text/javascript" src="js/jquery.minesweeper.js"></script>
+	<script type="text/javascript" src="js/minesweeper-core.js"></script>
 	<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript" src="js/minesweeper.js"></script>
 
-	<script type="text/javascript">						
+	<script type="text/javascript">	
+								
             app.initialize();
      </script>
-     
-     <script id="GamePageContent" type="text/html">
+
+
+	<!--  This template is used dynamically to crreate the game board
+		Dynamically so as to avoid multiple event registrations for same element
+	 -->
+	<script id="GamePageContent" type="text/html">
 		<div class="btn-group">
 			<button type="button" class="btn btn-primary dropdown-toggle"
 				data-toggle="dropdown">
@@ -93,5 +96,25 @@
 			
 		</table>
 	</script>
+
+
+	<!--  Below div is for showing modal windows for highest scores -->
+
+	<div id="MyModal" class="modal bs-example-modal-sm" tabindex="-1"
+		role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="mySmallModalLabel">Highest Scores</h4>
+				</div>
+				<div class="modal-body">...</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>

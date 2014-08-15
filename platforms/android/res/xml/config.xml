@@ -5,6 +5,10 @@
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
     <name>MineSweeper</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

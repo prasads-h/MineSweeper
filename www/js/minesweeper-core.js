@@ -1,6 +1,9 @@
 (function( $ ){
 
-	// I am the controller for the mine sweeper game.
+	/*
+	 * selector: the div id or class that holds the minsweeper board
+	 * bombCount: can be like 10% or a standard integer 10
+	 */
 	function MineSweeper( selector, columnCount, rowCount, bombCount ){
 		var self = this;
 		this.table = $( selector );
@@ -58,6 +61,9 @@
 		this.initTable();
 	};
 	
+	/*
+	 * initialize this timer to start the game secs time
+	 */
 	MineSweeper.prototype.setTimerInterval = function() {
 		var self = this;
 		return setInterval(function() {
@@ -104,6 +110,10 @@
 			time = hours + ':' + minutes + ':' + seconds;
 		return time;
 	}
+	/*
+	 *  '.bomb' td's that have bombs will contain that class name, so total number of bombs is equal to number of td's 
+	 *  that has this class name
+	 */
 	MineSweeper.prototype.updateBombCount = function() {
 		var bombs = jQuery(".bomb");
 		var totalBombs = bombs.length;
@@ -143,6 +153,8 @@
 	MineSweeper.prototype.checkEndGame = function(){
 		var message = "";
 		var isEndGame = false;
+		var isLostGame = false;
+		var isWinGame = false;
 		//alert(this.bombCells.filter( ".bombed" ));
 		// Check to see if any of the bombs have exploded.
 		if (this.bombCells.filter( ".bombed" ).size()){
@@ -152,6 +164,8 @@
 
 			// Flag the end game.
 			isEndGame = true;
+			
+			isLostGame = true;
 
 		// Check to see if there are any more active
 		// non-bomb cells. If not, then the user has
@@ -163,20 +177,35 @@
 
 			// Flag the end game.
 			isEndGame = true;
+			
+			isWinGame = true;
 
 		}
 
 		// Check to see if the game is over.
 		if (isEndGame){
+			
+			if(isWinGame){
+				var name = promptName();
+				if(name != null && name != "")
+					_File.writeHSScore(name, this.timeCount);
+				this.clearInterval(); // clearing the time
+			} else if(isLostGame){
+				// Prompt for replay.
+				if (confirm( message )){
+					// Restart the game.
+					this.restart();
 
-			// Prompt for replay.
-			if (confirm( message )){
-
-				// Restart the game.
-				this.restart();
-
+				}
+			}			
+		}
+		
+		function promptName(){
+			var name = prompt("You Win!! Please Enter your Name");
+			if(name == ""){
+				name = promptName();
 			}
-
+			return name;
 		}
 	};
 
